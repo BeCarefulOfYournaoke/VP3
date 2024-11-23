@@ -1,0 +1,79 @@
+ckpt_dir: ./ckpt/Travel20
+log_dir: ./log/Travel20
+name: Multi_branch
+
+dataset: 
+  name: Travel20
+  train_path: /media/disk12T/2022-sgh/datasets/Travel20/trainval
+  test_path: /media/disk12T/2022-sgh/datasets/Travel20/test
+  image_size: 224
+  num_workers: 16
+  val_num_worker: 16
+  pattern: multi
+  class_num: 20
+  val_ratio: 0.15
+  visual_ratio: 0.3
+
+model: 
+  name: Multi_branch
+  backbone: res50
+  embed_size: 512
+  fea_size: 128
+  pattern_num: 7 # number of pattern prototype
+  Top_K_num: 20
+  # public pretrained model of resnet50 
+  # 'resnet50': 'https://download.pytorch.org/models/resnet50-19c8e357.pth',
+  pretrain_path: /media/disk12T/2022-sgh/ModelWeight/resnet50-19c8e357.pth
+
+train:
+  optimizer: 
+    name: SGD
+    weight_decay: 0.0001
+    momentum: 0.9
+  irScheduler: 
+    name: exp_lr_scheduler    #  exp_lr_scheduler or warmup
+    gamma: 0.95
+  init_lr: 0.0007
+  weight_lr: 0.0007
+  ###################
+  stop_at_epoch: 60 # has to be smaller than num_epochs
+  ####################
+  batch_size: 256
+  warmup:
+    multiplier: 10  # 0 epoch lr is init_lr/multiplier
+    total_epoch: 4  # 0~4 epoch with warmup
+
+
+Loss:
+  name: Multi_branch
+  alpha_SupCon: 0.5
+  beta_reg_1: 1.0
+  beta_reg_2: 2.0
+  temperature1: 0.2  # temperature of L_DF
+  temperature2: 0.2  # temperature of of L_w2ps
+  tau: 0.07  # Sharpen the probability of instance belongs to Pattern
+  prob_threshold: 0.5 # the threshold of selecting from Pse| |
+  weight_detach: False
+  momentum_class_p: 0.999
+  visual_prob_thresh: 0.7
+  num_ratio: 0.05
+
+val: # linear evaluation, False will turn off automatic evaluation after training
+  optimizer: 
+    name: sgd
+    weight_decay: 0
+    momentum: 0.9
+  batch_size: 256
+
+logger:
+  tensorboard: False
+  matplotlib: True
+
+seed: null # None type for yaml file
+# two things might lead to stochastic behavior other than seed:
+# worker_init_fn from dataloader and torch.nn.functional.interpolate 
+# (keep this in mind if you want to achieve 100% deterministic)
+
+
+
+
