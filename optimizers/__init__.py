@@ -6,8 +6,6 @@ import math
 
 def adjust_learning_rate(optimizer, epoch, args):
     """Decay the learning rate based on schedule"""
-    # 根据训练进度递减学习速率
-    # 这个也是深度学习固定的模板
     lr = args.lr
     if args.cos:  # cosine lr schedule
         lr *= 0.5 * (1. + math.cos(math.pi * epoch / args.epochs))

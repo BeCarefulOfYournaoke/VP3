@@ -15,7 +15,6 @@ import warnings
 from datetime import datetime
 
 
-#导入相关模块
 from torch.utils.data import DataLoader,Dataset
 from torchvision import datasets
 from PIL import Image
@@ -33,11 +32,11 @@ class MySubset(Dataset):
         return self.transform(Image.open(self.imgs[idx])), self.targets[idx], self.imgs[idx]
     def __len__(self): return len(self.targets)
     
-class MyDataSet(Dataset): #继承Dataset
-    def __init__(self, root_dir, transform=None): #__init__是初始化该类的一些基础参数
-        self.root_dir = root_dir   #文件目录
-        self.transform = transform #变换
-        self.classes = os.listdir(self.root_dir)#所有类名
+class MyDataSet(Dataset): 
+    def __init__(self, root_dir, transform=None): 
+        self.root_dir = root_dir   
+        self.transform = transform 
+        self.classes = os.listdir(self.root_dir)
         self.classPath = []
         self.imgsPath = []
         self.labels = []
@@ -54,8 +53,8 @@ class MyDataSet(Dataset): #继承Dataset
     def __len__(self):
         return len(self.labels)
 
-    def __getitem__(self,index):#根据索引index返回dataset[index]
-        image_path = self.imgsPath[index]#根据索引index获取该图片
+    def __getitem__(self,index):
+        image_path = self.imgsPath[index]
         img = Image.open(image_path).convert('RGB')
         
         label = self.labels[index]

@@ -29,15 +29,6 @@ def calculate_val_accu_loss(args, model, criterion, val_Loader, Phase = 'Val'):
             classfy_loss, sup_con_loss, _, _, predict_label = \
                             criterion(fea_norm_weak, fea_norm_strong, labels, cur_epoch=30)
 
-            # images_weak = images[0].cuda(non_blocking=True)
-            # image_strong = images[1].cuda(non_blocking=True)
-            # labels = labels.cuda(non_blocking=True)
-
-            # _, fea_norm_weak = model(images_weak)
-            # _, fea_norm_strong = model(image_strong)
-
-            # classfy_loss, sup_con_loss, _, _, predict_label = \
-            #                 criterion(fea_norm_weak, fea_norm_strong, labels, cur_epoch=30)
 
             correct_num = correct_num + (predict_label == labels).sum().cpu().item()
             classify_loss_sum = classify_loss_sum + classfy_loss.cpu().item()

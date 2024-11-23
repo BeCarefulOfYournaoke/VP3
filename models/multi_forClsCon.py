@@ -72,11 +72,11 @@ class multiCom_VGG19(nn.Module):
         x = self.vgg_layer_before(x)
         x = self.vgg_layer_after(x)
         x = self.avgpool(x)
-        #去空维度
+
         x = x.view(x.size(0), 512)
-        #1,512
+
         midfea = x
-        #embedding Layer
+
         x = self.linear_layer(x)
         x = F.normalize(x, p=2, dim=1)
         return midfea, x

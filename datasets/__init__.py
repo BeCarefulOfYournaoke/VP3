@@ -31,21 +31,6 @@ class GaussianBlur(object):
 
 def get_dataset(data_path, name, image_size=224, train=True, pattern='multi'):
     
-    # train_transforms = transforms.Compose([
-    #                                     transforms.RandomResizedCrop((image_size, image_size), (0.75, 1.)),
-    #                                     # transforms.Resize((image_size, image_size)),
-    #                                     transforms.RandomGrayscale(p=0.1),
-    #                                     # transforms.ColorJitter(0.4, 0.4, 0.4, 0.4),
-    #                                     transforms.RandomHorizontalFlip(),
-    #                                     #transforms.RandomVerticalFlip(),
-    #                                     transforms.ToTensor(),
-    #                                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    #                                   ])
-    # test_transforms = transforms.Compose([
-    #                                     transforms.Resize((image_size, image_size)),
-    #                                     transforms.ToTensor(),
-    #                                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    #                                   ])
 
     strong_transforms = transforms.Compose([
                             transforms.RandomResizedCrop(image_size, scale=(0.25, 1.)),
@@ -61,13 +46,6 @@ def get_dataset(data_path, name, image_size=224, train=True, pattern='multi'):
     ])
 
     weak_transforms = transforms.Compose([
-                            # transforms.RandomResizedCrop(256, scale=(0.5, 1.)),
-                            # transforms.CenterCrop(image_size),
-
-                            # transforms.RandomResizedCrop(image_size, scale=(0.25, 1.)),
-                            # transforms.RandomHorizontalFlip(p=0.5),
-                            # RandAugment(3, 8),
-
                             transforms.RandomResizedCrop(image_size, scale=(0.25, 1.)),
                             transforms.RandomHorizontalFlip(p=0.5),
 
@@ -76,19 +54,12 @@ def get_dataset(data_path, name, image_size=224, train=True, pattern='multi'):
                             ])
 
     test_transforms = transforms.Compose([
-                            # transforms.Resize(256),
-                            # transforms.CenterCrop(image_size),
                             transforms.Resize((image_size, image_size)),
                             transforms.ToTensor(),
                             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                             ])
     
     rand_transforms = transforms.Compose([
-                            # transforms.RandomResizedCrop(256, scale=(0.25, 1.)),
-                            # # transforms.RandomHorizontalFlip(p=0.5),
-                            # RandAugment(3, 10),
-                            # transforms.CenterCrop(image_size),
-
                             transforms.RandomResizedCrop(image_size, scale=(0.25, 1.)),
                             transforms.RandomHorizontalFlip(p=0.5),
                             RandAugment(3, 8),
@@ -107,8 +78,6 @@ def get_dataset(data_path, name, image_size=224, train=True, pattern='multi'):
                 dataset = ReadOne(data_path, transform = TwoCropTransform(weak_transforms, rand_transforms))
             elif name == 'Place20':
                 dataset = ReadOne(data_path, transform = TwoCropTransform(weak_transforms, rand_transforms))
-            elif name == 'VOC':
-                dataset = ReadOne(data_path, transform = TwoCropTransform(weak_transforms, rand_transforms))
                 
 
     elif train==False:
@@ -120,8 +89,6 @@ def get_dataset(data_path, name, image_size=224, train=True, pattern='multi'):
             elif name == 'ILSVRC20':
                 dataset = ReadOne(data_path, transform = TwoCropTransform(test_transforms, rand_transforms))
             elif name == 'Place20':
-                dataset = ReadOne(data_path, transform = TwoCropTransform(test_transforms, rand_transforms))
-            elif name == 'VOC':
                 dataset = ReadOne(data_path, transform = TwoCropTransform(test_transforms, rand_transforms))
     return dataset
     
