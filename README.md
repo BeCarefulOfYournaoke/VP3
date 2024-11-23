@@ -18,6 +18,7 @@ python main.py -c ./config/multiCom_Cls_Con_ILSVRC.yaml
 visualization by running:
 
 ```python
+# edit the 'modle_save_path' and 'weight_save_path' in xxx.yaml
 python Visual.py -c ./config/multiCom_Cls_Con_Cifar.yaml
 ```
 
