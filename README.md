@@ -2,7 +2,7 @@
 Rethinking Multi-pattern Mining from a Perspective of Pattern Prototype Learning
 ---
 
-## Notice-1
+## Note-1
 
 The configuration of VP3 for 4 datasets, CIFAR100, Travel, ILSVRC20, Place20 is in folder `config`.
 
@@ -23,7 +23,7 @@ python Visual.py -c ./config/multiCom_Cls_Con_Cifar.yaml
 ```
 
 
-## Notece-2
+## Note-2
 
 The CIFAR100 datasets has two hierarchical structure with `CIFAR20/class-1/beaver`, `CIFAR20/class-1/dolphin`, `CIFAR20/class-1/otter`, `CIFAR20/class-1/seal`,`CIFAR20/class-1/whale`
 
