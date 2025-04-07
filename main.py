@@ -3,6 +3,7 @@ import os
 cuda_id = '2,3'
 os.environ['CUDA_VISIBLE_DEVICES']=cuda_id
 import torch
+import torch.backends.cudnn as cudnn
 import torch.nn as nn
 import torch.nn.functional as F 
 import torchvision
@@ -36,6 +37,12 @@ np.set_printoptions(threshold=np.inf)
 
 
 def main(device, args):
+
+    seed = 1228
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.manual_seed(seed)
+    cudnn.deterministic = True
     
     trainval_dataset = get_dataset(args.dataset.train_path,
                                     args.dataset.name, 
