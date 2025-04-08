@@ -36,7 +36,7 @@ train:
   init_lr: 0.0005
   weight_lr: 0.0005
   ###################
-  stop_at_epoch: 70 # has to be smaller than num_epochs
+  stop_at_epoch: 60 # has to be smaller than num_epochs
   ####################
   batch_size: 256
   warmup:
