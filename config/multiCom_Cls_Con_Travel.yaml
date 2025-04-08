@@ -33,8 +33,8 @@ train:
   irScheduler: 
     name: exp_lr_scheduler    #  exp_lr_scheduler or warmup
     gamma: 0.95
-  init_lr: 0.0007
-  weight_lr: 0.0007
+  init_lr: 0.0005
+  weight_lr: 0.0005
   ###################
   stop_at_epoch: 60 # has to be smaller than num_epochs
   ####################
